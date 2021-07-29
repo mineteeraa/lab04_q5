@@ -8,6 +8,8 @@ import NotFound from '@/views/NotFound.vue'
 import NetworkError from '@/views/NetworkError.vue'
 import EditPassengerDetails from '@/views/details/EditPassengerDetails.vue'
 import NProgress from 'nprogress'
+import PassengerService from '@/services/PassengerService.js'
+import GStore from '@/store'
 
 const routes = [
   {
@@ -26,6 +28,22 @@ const routes = [
     name: 'Layout',
     props: true,
     component: Layout,
+    beforeEnter: (to) => {
+      return PassengerService.getEvent(to.params.id)
+        .then((response) => {
+          GStore.passenger = response.data // <--- Store the event
+        })
+        .catch((error) => {
+          if (error.response && error.response.status == 404) {
+            return {
+              name: '404Resource',
+              params: { resource: 'event' }
+            }
+          } else {
+            return { name: 'NetworkError' }
+          }
+        })
+    },
     children: [
       {
         path: '',
