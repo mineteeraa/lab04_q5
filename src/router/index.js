@@ -7,13 +7,14 @@ import AirlineDetails from '@/views/details/AirlineDetails.vue'
 import NotFound from '@/views/NotFound.vue'
 import NetworkError from '@/views/NetworkError.vue'
 import EditPassengerDetails from '@/views/details/EditPassengerDetails.vue'
+import NProgress from 'nprogress'
 
 const routes = [
   {
     path: '/',
     name: 'PassengerList',
     component: PassengerList,
-    props: (route) => ({ page: parseInt(route.query.page) || 0, size: parseInt(route.query.size) || 10 })
+    props: (route) => ({ page: parseInt(route.query.page) || 0, size: parseInt(route.query.size) || 5 })
   },
   {
     path: '/about',
@@ -66,6 +67,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+router.beforeEach(() => {
+  NProgress.start()
+})
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router
