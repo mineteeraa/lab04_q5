@@ -6,6 +6,7 @@ import PassengerDetails from '@/views/details/PassengerDetails.vue'
 import AirlineDetails from '@/views/details/AirlineDetails.vue'
 import NotFound from '@/views/NotFound.vue'
 import NetworkError from '@/views/NetworkError.vue'
+import EditPassengerDetails from '@/views/details/EditPassengerDetails.vue'
 
 const routes = [
   {
@@ -35,6 +36,12 @@ const routes = [
         name: 'AirlineDetails',
         props: true,
         component: AirlineDetails
+      },
+      {
+        path: 'editpassengerdetails',
+        name: 'EditPassengerDetails',
+        props: true,
+        component: EditPassengerDetails
       }
     ]
   },
